@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRB: {fileID: 2683837620699261577}
   moveSpeed: 15
-  jumpForce: 20
+  jumpForce: 40
   playerType: 0
   barque: {fileID: 0}
   theGround:
