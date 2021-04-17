@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: -2893789338324743529}
   - component: {fileID: -2976302541698503135}
   - component: {fileID: -3538482157697706373}
+  - component: {fileID: 1068971454}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -271,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theRB: {fileID: 2683837620699261577}
   moveSpeed: 15
-  jumpForce: 40
+  jumpForce: 13
   playerType: 0
   barque: {fileID: 0}
   theGround:
@@ -319,7 +320,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: -2893789338324743529}
-  sceneViewId: 0
+  sceneViewId: 6
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &-2893789338324743529
@@ -384,6 +385,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2aacd07cf1c454aa19a30216e8ae81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1068971454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683837620699261580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ad6bd9dfa7c8924792feb9c8adf5775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  proj: {fileID: 902665607846325089, guid: 5bf5546c6ba313e4a91a8b6f8539123f, type: 3}
+  velocity: 10
 --- !u!1 &2683837621151598122
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +492,7 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 435628899025087735}
-  sceneViewId: 0
+  sceneViewId: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1001 &2683837620564133963
