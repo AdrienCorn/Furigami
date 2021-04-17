@@ -372,6 +372,7 @@ MonoBehaviour:
   - {fileID: -2976302541698503135}
   - {fileID: 2683837620699261582}
   - {fileID: -3538482157697706373}
+  - {fileID: 1068971454}
   cameraToIgnore: {fileID: 3117332603260528941}
 --- !u!114 &-3538482157697706373
 MonoBehaviour:

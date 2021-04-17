@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System;
+using UnityEngine;
+
 
 public class Tir : MonoBehaviour
 {
     public GameObject proj;
     public int velocity = 10;
 
+    public static event Action<Transform, int, Vector3> onProjectilShoot;
 
     // Update is called once per frame
     void Update()
@@ -16,9 +21,10 @@ public class Tir : MonoBehaviour
             {
                 Vector3 tmpPos = this.transform.position;
                 tmpPos.x += 2;
-                GameObject tmpBall = Instantiate(proj, tmpPos, Quaternion.identity);
-                // TODO passer la ligne en dessous dans le prefab de projectile
-                tmpBall.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * velocity); //to follow obj rotation
+                //GameObject tmpBall = Instantiate(proj, tmpPos, Quaternion.identity);
+                PhotonNetwork.Instantiate("Projectile-power", tmpPos, Quaternion.identity, 0);
+                onProjectilShoot?.Invoke(this.transform, this.velocity, Vector3.forward);
+                
             }
 
         }

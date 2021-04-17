@@ -3,8 +3,39 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    //public Transform player;
     public Material active;
     public Material inactive;
+
+    private const byte THROW_PROJECTILE = 0; // byte to be sent by photon
+    // TODO make an enum with all the bytes, to ensure unicity of it
+
+    private void Start()
+    {
+        
+    }
+
+    #region event handler from player
+
+    private void OnEnable()
+    {
+        Tir.onProjectilShoot += OnProjectilShoot;
+        //PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
+    }
+
+    private void OnDisable()
+    {
+        Tir.onProjectilShoot -= OnProjectilShoot;
+        //PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
+    }
+
+    private void OnProjectilShoot(Transform PlayerTransform, int velocity, Vector3 playerForward)
+    {
+        this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(playerForward * velocity); //to follow player rotation
+        //PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+    }
+
+    #endregion
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,7 +48,7 @@ public class Projectile : MonoBehaviour
         }
 
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        StartCoroutine(ExecuteAfterTime(1));
+        StartCoroutine(ExecuteAfterTime(2));
 
     }
 
@@ -27,6 +58,7 @@ public class Projectile : MonoBehaviour
 
         // Code to execute after the delay
         this.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Destroy(this.gameObject, 2f);
+        // TODO supprimer le projectile instant
+        Destroy(this.gameObject);
     }
 }
