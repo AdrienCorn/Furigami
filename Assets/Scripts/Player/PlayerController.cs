@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
             if (moveInput.x < 0 && !isFacingLeft)
             {
                 // tourner pour regarder la gauche
-                Debug.Log("tourne G");
+                //Debug.Log("tourne G");
                 flipAnim.SetTrigger("RtoL");
                 isFacingLeft = true;
                 //rotation
@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (moveInput.x > 0 && isFacingLeft )
             {
-                Debug.Log("tourne D");
+                //Debug.Log("tourne D");
                 flipAnim.SetTrigger("LtoR");
                 isFacingLeft = false;
                 //this.transform.Rotate(0, 180, 0);                
