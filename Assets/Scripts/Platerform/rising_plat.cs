@@ -20,13 +20,13 @@ public class rising_plat : MonoBehaviour
 
     private void OnEnable()
     {
-        PlateformPower.onPlateformPower += OnPlateformePower;
+        PlateformPower.onPlateformPowerUp += OnPlateformePower;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
     }
 
     private void OnDisable()
     {
-        PlateformPower.onPlateformPower -= OnPlateformePower;
+        PlateformPower.onPlateformPowerUp -= OnPlateformePower;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
     }
 
@@ -42,19 +42,20 @@ public class rising_plat : MonoBehaviour
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 && Input.GetKeyDown("b"))
+        if (Ray.magnitude <= 5 /*&& Input.GetKeyDown("b")*/)
         {
             
             RiseState = -RiseState;
             StartCoroutine("Rising");
             object[] datas = new object[] { this.name };
-            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            PhotonNetwork.RaiseEvent(eventCode: PLATEFORM_MOVE, eventContent: datas, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
         }
     }
 
     private void NetworkingClient_OnPlateformePower(EventData obj)
     {
-        if(obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
+        print(obj);
+        if (obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
         {
             //RiseState = (float)obj.CustomData;
             RiseState = -RiseState;
