@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -10,6 +13,8 @@ public class Projectile : MonoBehaviour
     private const byte THROW_PROJECTILE = 0; // byte to be sent by photon
     // TODO make an enum with all the bytes, to ensure unicity of it
 
+    public int velocity = 10;
+
     private void Start()
     {
         
@@ -20,19 +25,28 @@ public class Projectile : MonoBehaviour
     private void OnEnable()
     {
         Tir.onProjectilShoot += OnProjectilShoot;
-        //PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnProjectileShhot;
     }
 
     private void OnDisable()
     {
         Tir.onProjectilShoot -= OnProjectilShoot;
-        //PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnProjectileShhot;
+    }
+    
+    private void OnProjectilShoot(Transform PlayerTransform, Vector3 playerForward)
+    {
+        
+        object[] datas = new object[] { playerForward };
+        PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
-    private void OnProjectilShoot(Transform PlayerTransform, int velocity, Vector3 playerForward)
+    private void NetworkingClient_OnProjectileShhot(EventData obj)
     {
-        this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(playerForward * velocity); //to follow player rotation
-        //PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        if (obj.Code == THROW_PROJECTILE)
+        {
+            //this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(playerForward * velocity); //to follow player rotation
+        }
     }
 
     #endregion

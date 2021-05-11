@@ -7,9 +7,8 @@ using UnityEngine;
 public class Tir : MonoBehaviour
 {
     public GameObject proj;
-    public int velocity = 10;
 
-    public static event Action<Transform, int, Vector3> onProjectilShoot;
+    public static event Action<Transform, Vector3> onProjectilShoot;
 
     // Update is called once per frame
     void Update()
@@ -23,7 +22,7 @@ public class Tir : MonoBehaviour
                 tmpPos.x += 2;
                 //GameObject tmpBall = Instantiate(proj, tmpPos, Quaternion.identity);
                 PhotonNetwork.Instantiate("Projectile-power", tmpPos, Quaternion.identity, 0);
-                onProjectilShoot?.Invoke(this.transform, this.velocity, Vector3.forward);
+                onProjectilShoot?.Invoke(this.transform, Vector3.forward);
                 
             }
 
