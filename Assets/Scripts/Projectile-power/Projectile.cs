@@ -36,16 +36,17 @@ public class Projectile : MonoBehaviour
     
     private void OnProjectilShoot(Transform PlayerTransform, Vector3 playerForward)
     {
-        
         object[] datas = new object[] { playerForward };
         PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void NetworkingClient_OnProjectileShhot(EventData obj)
     {
+        Debug.Log("here");
         if (obj.Code == THROW_PROJECTILE)
         {
-            //this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(playerForward * velocity); //to follow player rotation
+            
+            this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(this.transform.position * velocity); //to follow player rotation
         }
     }
 
