@@ -52,36 +52,49 @@ public class rising_sustain_plat : MonoBehaviour
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5/* && Input.GetKeyDown("b")*/)
+        if (Ray.magnitude <= 5 /*&& Input.GetKeyDown("b")*/)
         {
             RiseState = 1.0f;
             StartCoroutine("Rising");
-            object[] content = new object[] { this.name, RiseState };
-            PhotonNetwork.RaiseEvent(eventCode: PLATEFORM_MOVE, eventContent: content, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
-        } 
+            string encoded_data = this.name + "|" + "Rise";
+            object[] content = new object[] {encoded_data};
+            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, content[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
+        }
     }
 
     private void OnPlateformePowerDown(Transform PlayerTransform)
     {
+        Debug.Log("plateform down");
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5/* && Input.GetKeyDown("b")*/)
+        if (Ray.magnitude <= 5 /* && Input.GetKeyDown("b")*/)
         {
             RiseState = -1.0f;
             StartCoroutine("Rising");
-            object[] content = new object[] { this.name , RiseState};
-            PhotonNetwork.RaiseEvent(eventCode:PLATEFORM_MOVE, eventContent:content, raiseEventOptions:RaiseEventOptions.Default, sendOptions:SendOptions.SendUnreliable);
+            string encoded_data = this.name + "|" + "Collapse";
+            object[] content = new object[] { encoded_data };
+            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, content[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
         }
     }
 
     private void NetworkingClient_OnPlateformePower(EventData obj)
     {
-        print(obj);
-        /*if(obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
+        if (obj.Code == PLATEFORM_MOVE && ((string)obj.CustomData == this.name+"|Rise" || (string)obj.CustomData == this.name + "|Collapse"))
         {
+            Debug.Log(obj.CustomData);
+            string data = (string)obj.CustomData;
+            string[] subs = data.Split('|');
+            string obj_name = subs[0];
+            string obj_rise_state = subs[1];
+
+            if (obj_rise_state == "Rise") { RiseState = 1.0f; }
+            else { RiseState = -1.0f; }
+
             StartCoroutine("Rising");
-        }*/
+        }
     }
 
     // Coroutine to rise or collapse plateform

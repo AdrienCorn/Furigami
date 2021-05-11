@@ -20,14 +20,22 @@ public class rising_plat : MonoBehaviour
 
     private void OnEnable()
     {
-        PlateformPower.onPlateformPowerUp += OnPlateformePower;
+        PlateformPower.onPlateformPowerUp += OnPlateformePowerUp;
+        //PlateformPower.onPlateformPowerDown += OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
+
+        //PlateformPower.onPlateformPower += OnPlateformePower;
+        //PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
     }
 
     private void OnDisable()
     {
-        PlateformPower.onPlateformPowerUp -= OnPlateformePower;
+        PlateformPower.onPlateformPowerUp -= OnPlateformePowerUp;
+        //PlateformPower.onPlateformPowerDown -= OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
+
+        //PlateformPower.onPlateformPower -= OnPlateformePower;
+        //PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
     }
 
     // Start is called before the first frame update
@@ -37,25 +45,27 @@ public class rising_plat : MonoBehaviour
         MiddleHeight = transform.position.y + HalfHeight;
     }
 
-    private void OnPlateformePower(Transform PlayerTransform)
+    private void OnPlateformePowerUp(Transform PlayerTransform)
     {
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 /*&& Input.GetKeyDown("b")*/)
+        if (Ray.magnitude <= 5 && Input.GetKeyDown("b"))
         {
             
             RiseState = -RiseState;
             StartCoroutine("Rising");
             object[] datas = new object[] { this.name };
             PhotonNetwork.RaiseEvent(eventCode: PLATEFORM_MOVE, eventContent: datas, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
+
+            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
         }
     }
 
     private void NetworkingClient_OnPlateformePower(EventData obj)
     {
-        print(obj);
-        if (obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
+        if(obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
         {
             //RiseState = (float)obj.CustomData;
             RiseState = -RiseState;
