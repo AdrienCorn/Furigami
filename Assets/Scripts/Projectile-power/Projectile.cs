@@ -10,10 +10,10 @@ public class Projectile : MonoBehaviour
     public Material active;
     public Material inactive;
 
-    private const byte THROW_PROJECTILE = 0; // byte to be sent by photon
+    private const byte THROW_PROJECTILE = 1; // byte to be sent by photon
     // TODO make an enum with all the bytes, to ensure unicity of it
 
-    public int velocity = 10;
+    public int velocity;
 
     private void Start()
     {
@@ -34,20 +34,37 @@ public class Projectile : MonoBehaviour
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnProjectileShhot;
     }
     
-    private void OnProjectilShoot(Transform PlayerTransform, Vector3 playerForward)
+    private void OnProjectilShoot(GameObject Player, Vector3 playerForward)
     {
-        Debug.Log("local event");
-        object[] datas = new object[] { playerForward };
+        //Debug.Log("local event");
+        //Debug.Log(Player.transform.GetChild(0).rotation.eulerAngles.y);
+        Vector3 direction;
+        if (Player.transform.GetChild(0).rotation.eulerAngles.y > 90)
+        {
+            Debug.Log("droite");
+            direction = new Vector3(1, 0, 0);
+        }
+        else
+        {
+            Debug.Log("gauche");
+            direction = new Vector3(-1, 0, 0);
+        }
+        this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(direction * velocity);
+        //Debug.Log(new Vector3(-Player.transform.GetChild(0).rotation.eulerAngles.y, 0, 0));
+        object[] datas = new object[] { direction };
         PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void NetworkingClient_OnProjectileShhot(EventData obj)
     {
-        Debug.Log("network event");
-        if (obj.Code.Equals(THROW_PROJECTILE))
+        if (obj.Code == THROW_PROJECTILE)
         {
             Debug.Log("succes");
-            this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(this.transform.position * velocity); //to follow player rotation
+            this.GetComponent<Rigidbody>().velocity = transform.TransformDirection((Vector3)obj.CustomData * velocity); //to follow player rotation
+        }
+        else
+        {
+            Debug.Log(obj.Code.ToString());
         }
     }
 
