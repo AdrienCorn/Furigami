@@ -20,14 +20,22 @@ public class rising_plat : MonoBehaviour
 
     private void OnEnable()
     {
-        PlateformPower.onPlateformPower += OnPlateformePower;
+        PlateformPower.onPlateformPowerUp += OnPlateformePowerUp;
+        //PlateformPower.onPlateformPowerDown += OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
+
+        //PlateformPower.onPlateformPower += OnPlateformePower;
+        //PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
     }
 
     private void OnDisable()
     {
-        PlateformPower.onPlateformPower -= OnPlateformePower;
+        PlateformPower.onPlateformPowerUp -= OnPlateformePowerUp;
+        //PlateformPower.onPlateformPowerDown -= OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
+
+        //PlateformPower.onPlateformPower -= OnPlateformePower;
+        //PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
     }
 
     // Start is called before the first frame update
@@ -37,7 +45,7 @@ public class rising_plat : MonoBehaviour
         MiddleHeight = transform.position.y + HalfHeight;
     }
 
-    private void OnPlateformePower(Transform PlayerTransform)
+    private void OnPlateformePowerUp(Transform PlayerTransform)
     {
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
@@ -48,7 +56,10 @@ public class rising_plat : MonoBehaviour
             RiseState = -RiseState;
             StartCoroutine("Rising");
             object[] datas = new object[] { this.name };
+            PhotonNetwork.RaiseEvent(eventCode: PLATEFORM_MOVE, eventContent: datas, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
+
             PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
         }
     }
 

@@ -3202,6 +3202,8 @@ MonoBehaviour:
   _playerListing: {fileID: 6736789028810779563, guid: 6b23538ea72677546a1a840db38afdae,
     type: 3}
   _readyUpText: {fileID: 122428451}
+  startGame: {fileID: 0}
+  ReadyUp: {fileID: 0}
 --- !u!114 &2121195444
 MonoBehaviour:
   m_ObjectHideFlags: 0
