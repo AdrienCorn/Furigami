@@ -3,21 +3,23 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
     //public Transform player;
     public Material active;
     public Material inactive;
+    public bool projectileIsNew = true;
 
     private const byte THROW_PROJECTILE = 1; // byte to be sent by photon
     // TODO make an enum with all the bytes, to ensure unicity of it
+    private const byte SYNCRONISE_ID = 3;
 
     public int velocity;
 
     private void Start()
     {
-        
     }
 
     #region event handler from player
@@ -34,37 +36,39 @@ public class Projectile : MonoBehaviour
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnProjectileShhot;
     }
     
-    private void OnProjectilShoot(GameObject Player, Vector3 playerForward)
+    private void OnProjectilShoot(GameObject Player)
     {
-        //Debug.Log("local event");
-        //Debug.Log(Player.transform.GetChild(0).rotation.eulerAngles.y);
-        Vector3 direction;
-        if (Player.transform.GetChild(0).rotation.eulerAngles.y > 90)
+        if (projectileIsNew)
         {
-            Debug.Log("droite");
-            direction = new Vector3(1, 0, 0);
+            projectileIsNew = false;
+            //Debug.Log("local event");
+            //Debug.Log(Player.transform.GetChild(0).rotation.eulerAngles.y);
+            int direction;
+            if (Player.transform.GetChild(0).rotation.eulerAngles.y > 90)
+            {
+                Debug.Log("droite");
+                direction = 1;
+            }
+            else
+            {
+                Debug.Log("gauche");
+                direction = -1;
+            }
+            this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3(direction, 0, 0) * velocity);
+            //Debug.Log(new Vector3(-Player.transform.GetChild(0).rotation.eulerAngles.y, 0, 0));
+            object[] datas = new object[] { direction };
+            PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
-        else
-        {
-            Debug.Log("gauche");
-            direction = new Vector3(-1, 0, 0);
-        }
-        this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(direction * velocity);
-        //Debug.Log(new Vector3(-Player.transform.GetChild(0).rotation.eulerAngles.y, 0, 0));
-        object[] datas = new object[] { direction };
-        PhotonNetwork.RaiseEvent(THROW_PROJECTILE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void NetworkingClient_OnProjectileShhot(EventData obj)
     {
-        if (obj.Code == THROW_PROJECTILE)
+        if (obj.Code == THROW_PROJECTILE && projectileIsNew)
         {
-            Debug.Log("succes");
-            this.GetComponent<Rigidbody>().velocity = transform.TransformDirection((Vector3)obj.CustomData * velocity); //to follow player rotation
-        }
-        else
-        {
-            Debug.Log(obj.Code.ToString());
+            projectileIsNew = false;
+            {
+                this.GetComponent<Rigidbody>().velocity = transform.TransformDirection(new Vector3((int)obj.CustomData, 0, 0) * velocity); //to follow player rotation
+            }
         }
     }
 

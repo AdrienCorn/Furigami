@@ -140,6 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: {fileID: 2100000, guid: ddb5fcaae2d9ecd4a910ce61fe26c240, type: 2}
   inactive: {fileID: 2100000, guid: 286bd5a198a81094195062cbff591a21, type: 2}
+  projectileID: 0
+  projectileIsNew: 1
   velocity: 20
 --- !u!114 &3404111387813997351
 MonoBehaviour:
