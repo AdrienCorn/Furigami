@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator flipAnim;
     private bool isFacingLeft = true;
+
+    public static event Action<GameObject> onSteleInteraction;
 
     // Start is called before the first frame update
     void Start()
@@ -139,8 +142,11 @@ public class PlayerController : MonoBehaviour
             //flipAnim.SetTrigger("Flip");
         }
 
-		#endregion
+        #endregion
 
-
-	}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            onSteleInteraction?.Invoke(this.gameObject);
+        }
+    }
 }
