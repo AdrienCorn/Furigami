@@ -2,11 +2,13 @@
 using Photon.Realtime;
 using System;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
 public class Tir : MonoBehaviour
 {
-    public GameObject proj;
+    [SerializeField] private GameObject proj;
 
     public static event Action<GameObject> onProjectilShoot;
 
