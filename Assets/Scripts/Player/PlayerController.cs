@@ -65,20 +65,20 @@ public class PlayerController : MonoBehaviour
             isDrowning = false;
         }
 
-        if (playerType != 2 && Physics.Raycast(groundPoint.position, Vector3.down, out hit, .3f, theBoat))
-        {
-            isFloating = true;
-        }
-        else
-        {
-            isFloating = false;
-        }
+        //if (playerType != 2 && Physics.Raycast(groundPoint.position, Vector3.down, out hit, .3f, theBoat))
+        //{
+        //    isFloating = true;
+        //}
+        //else
+        //{
+        //    isFloating = false;
+        //}
 
         if (isDrowning)
 		{
             if (playerType != 2)
 			{
-                theRB.transform.position = new Vector3(-10, 1, 3);
+                theRB.transform.position = new Vector3(theRB.position.x + 10 , 1, theRB.position.z);
             }
             else // if has power to float
 			{
@@ -88,20 +88,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isFloating)
-        {
+        //if (isFloating)
+        //{
             //this.transform.parent = barque; ;
-            Debug.Log(barque.transform.position.y);
-            theRB.transform.position = new Vector3(barque.transform.position.x, barque.transform.position.y + 1.64f, barque.transform.position.z);            
-            if (Input.GetButtonDown("Jump"))
-            {
-                theRB.velocity += new Vector3(0f, jumpForce, 0f);
-            }
-        }
-        else
-		{
-            //this.transform.parent = null;
-		}
+        //    Debug.Log(barque.transform.position.y);
+        //    theRB.transform.position = new Vector3(barque.transform.position.x, barque.transform.position.y + 1.64f, barque.transform.position.z);            
+        //    if (Input.GetButtonDown("Jump"))
+        //    {
+        //        theRB.velocity += new Vector3(0f, jumpForce, 0f);
+        //    }
+        //}
+        //else
+		//{
+        //    //this.transform.parent = null;
+		//}
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
