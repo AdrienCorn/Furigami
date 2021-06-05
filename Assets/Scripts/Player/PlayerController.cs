@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
 		{
             if (playerType != 2)
 			{
-                theRB.transform.position = new Vector3(theRB.position.x + 10 , 1, theRB.position.z);
+                theRB.transform.position = new Vector3(theRB.position.x - 10 , theRB.position.y + 1, theRB.position.z);
             }
             else // if has power to float
 			{

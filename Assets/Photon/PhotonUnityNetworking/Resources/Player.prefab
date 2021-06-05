@@ -195,9 +195,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2683837620699261576}
   - component: {fileID: 2683837620699261583}
+  - component: {fileID: 2683837620699261578}
   - component: {fileID: 2683837620699261577}
   - component: {fileID: 2683837620699261582}
-  - component: {fileID: 2683837620699261578}
   - component: {fileID: 512415600394366228}
   - component: {fileID: -2893789338324743529}
   - component: {fileID: -2976302541698503135}
@@ -238,11 +238,24 @@ CapsuleCollider:
   m_GameObject: {fileID: 2683837620699261580}
   m_Material: {fileID: 13400000, guid: ff5a248e03f705244a53ca3cb89d55df, type: 2}
   m_IsTrigger: 0
-  m_Enabled: 0
-  m_Radius: 0.7
-  m_Height: 2.5
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.2, z: 0}
+  m_Enabled: 1
+  m_Radius: 0.25824666
+  m_Height: 2
+  m_Direction: 0
+  m_Center: {x: 0, y: -0.78824663, z: 0.050000012}
+--- !u!65 &2683837620699261578
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683837620699261580}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.225205, y: 3.820014, z: 0.0947206}
+  m_Center: {x: -0.053284526, y: 0.8517618, z: 0.049999997}
 --- !u!54 &2683837620699261577
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -274,7 +287,7 @@ MonoBehaviour:
   theRB: {fileID: 2683837620699261577}
   moveSpeed: 15
   jumpForce: 13
-  playerType: 0
+  playerType: 2
   barque: {fileID: 0}
   theGround:
     serializedVersion: 2
@@ -288,19 +301,6 @@ MonoBehaviour:
   groundPoint: {fileID: 2683837621151598133}
   isFloating: 0
   flipAnim: {fileID: 2683837620759609698}
---- !u!65 &2683837620699261578
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2683837620699261580}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0813713, y: 3.9774418, z: 0.0947206}
-  m_Center: {x: -0.039576292, y: 0.8985834, z: -0.012339234}
 --- !u!114 &512415600394366228
 MonoBehaviour:
   m_ObjectHideFlags: 0
