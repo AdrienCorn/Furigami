@@ -41,8 +41,9 @@ public class PlayerController : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         moveInput.Normalize();
+        if (!PauseMenu.isPaused) {
         theRB.velocity = new Vector3(moveInput.x * moveSpeed, theRB.velocity.y, moveInput.y * moveSpeed);
-
+        }
         //anim.SetFloat("moveSpeed", theRB.velocity.magnitude);
 
 		#region check status
