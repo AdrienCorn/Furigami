@@ -207,6 +207,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676558138}
     m_Modifications:
+    - target: {fileID: 223852279306862636, guid: 9197e298c844f0e409f159dead6bde30,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 26
+      objectReference: {fileID: 0}
     - target: {fileID: 2755886246528209614, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
       propertyPath: m_Name
@@ -286,6 +291,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303930420393191428, guid: 9197e298c844f0e409f159dead6bde30,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9197e298c844f0e409f159dead6bde30, type: 3}
@@ -31022,6 +31032,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1676558138}
     m_Modifications:
+    - target: {fileID: 223852279306862636, guid: 9197e298c844f0e409f159dead6bde30,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 2755886246528209614, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
       propertyPath: m_Name
@@ -31095,7 +31110,7 @@ PrefabInstance:
     - target: {fileID: 3845696098599240828, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3845696098599240828, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
@@ -31105,12 +31120,17 @@ PrefabInstance:
     - target: {fileID: 3845696098599240828, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.09
+      value: -5.33
       objectReference: {fileID: 0}
     - target: {fileID: 3845696098599240828, guid: 9197e298c844f0e409f159dead6bde30,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -34.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303930420393191428, guid: 9197e298c844f0e409f159dead6bde30,
+        type: 3}
+      propertyPath: sceneViewId
+      value: 23
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9197e298c844f0e409f159dead6bde30, type: 3}
