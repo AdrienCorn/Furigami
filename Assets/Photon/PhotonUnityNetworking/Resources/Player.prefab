@@ -286,7 +286,7 @@ MonoBehaviour:
   theRB: {fileID: 2683837620699261577}
   moveSpeed: 15
   jumpForce: 13
-  playerType: 2
+  playerType: 0
   barque: {fileID: 0}
   theGround:
     serializedVersion: 2

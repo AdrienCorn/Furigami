@@ -81,7 +81,7 @@ public class Projectile : MonoBehaviour
         {
             Debug.Log("activé");
             other.GetComponent<Renderer>().material = this.active;
-
+            other.GetComponent<TargetTrigger>().MoveBridge();
         }
 
         this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
