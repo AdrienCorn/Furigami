@@ -10,8 +10,8 @@ public class Interupteur : MonoBehaviour
     [SerializeField] private GameObject objectTrigger;
 
     private Vector3 Ray;
-    private const byte BRIDGE_MOVE = 6;
-    private const byte WALL_MOVE = 7;
+    private const byte BRIDGE_MOVE = 10;
+    private const byte WALL_MOVE = 11;
     private bool deployed;
 
     private void OnEnable()
@@ -91,11 +91,11 @@ public class Interupteur : MonoBehaviour
 
     private void NetworkingClient_OnTrigger(EventData obj)
     {
-        if (obj.Code == BRIDGE_MOVE)
+        if (obj.Code == BRIDGE_MOVE && (string)obj.CustomData == this.name)
         {
             MoveBridge();
         }
-        else if (obj.Code == WALL_MOVE)
+        else if (obj.Code == WALL_MOVE && (string)obj.CustomData == this.name)
         {
             MoveObstacle();
         }
