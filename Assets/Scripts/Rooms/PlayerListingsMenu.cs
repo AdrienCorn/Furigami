@@ -13,6 +13,10 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     private PlayerListing _playerListing;
     [SerializeField]
     private Text _readyUpText;
+    [SerializeField]
+    private GameObject startGame;
+    [SerializeField]
+    private GameObject ReadyUp;
 
     private List<PlayerListing> _listings = new List<PlayerListing>();
     private RoomsCanvases _roomsCanvases;
@@ -32,6 +36,10 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         base.OnEnable();
         SetReadyUp(false);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //startGame.enable = false;
+        }
     }
 
     private void SetReadyUp(bool state)
@@ -94,14 +102,14 @@ public class PlayerListingsMenu : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-         /*   for (int i = 0; i < _listings.Count; i++)
+            for (int i = 0; i < _listings.Count; i++)
             {
                 if(_listings[i].Player != PhotonNetwork.LocalPlayer)
                 {
                     if (!_listings[i].Ready)
                         return;
                 }
-            }*/
+            }
             PhotonNetwork.CurrentRoom.IsOpen = false;
             PhotonNetwork.CurrentRoom.IsVisible = false;
             PhotonNetwork.LoadLevel(2);

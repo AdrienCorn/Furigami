@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlateformPower : MonoBehaviour
 {
-    public static event Action<Transform> onPlateformPower;
+    public static event Action<Transform> onPlateformPowerUp;
+    public static event Action<Transform> onPlateformPowerDown;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,11 @@ public class PlateformPower : MonoBehaviour
     {
         if (Input.GetKeyDown("b"))
         {
-            onPlateformPower?.Invoke(this.transform);
+            onPlateformPowerUp?.Invoke(this.transform);
+        }
+        if  (Input.GetKeyUp("b"))
+        {
+            onPlateformPowerDown?.Invoke(this.transform);
         }
         if (Input.GetKey("b"))
         {

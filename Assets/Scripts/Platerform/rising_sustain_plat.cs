@@ -13,18 +13,21 @@ public class rising_sustain_plat : MonoBehaviour
     private float HalfHeight; // The half of the size of the plateform
     private float MiddleHeight; // The middle of rising state height in world space
     private float startHight;
+    private float RiseState = 1.0f; // The state to give to the platform (rising or collapsing)
 
     private const byte PLATEFORM_MOVE = 0;
 
     private void OnEnable()
     {
-        PlateformPower.onPlateformPower += OnPlateformePower;
+        PlateformPower.onPlateformPowerUp += OnPlateformePowerUp;
+        PlateformPower.onPlateformPowerDown += OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
     }
 
     private void OnDisable()
     {
-        PlateformPower.onPlateformPower -= OnPlateformePower;
+        PlateformPower.onPlateformPowerUp -= OnPlateformePowerUp;
+        PlateformPower.onPlateformPowerDown -= OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
     }
 
@@ -38,29 +41,58 @@ public class rising_sustain_plat : MonoBehaviour
 
     private void Update()
     {
-        if(transform.position.y > startHight && !Input.GetKey("b"))
+        /*if(transform.position.y > startHight && !Input.GetKey("b"))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.04f, transform.position.z);
-        }
+        }*/
     }
 
-    private void OnPlateformePower(Transform PlayerTransform)
+    private void OnPlateformePowerUp(Transform PlayerTransform)
     {
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = PlayerTransform.position.y - transform.position.y;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 && Input.GetKeyDown("b"))
+        if (Ray.magnitude <= 5 /*&& Input.GetKeyDown("b")*/)
         {
+            RiseState = 1.0f;
             StartCoroutine("Rising");
-            object[] datas = new object[] { this.name };
-            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
-        } 
+            string encoded_data = this.name + "|" + "Rise";
+            object[] content = new object[] {encoded_data};
+            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, content[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
+        }
+    }
+
+    private void OnPlateformePowerDown(Transform PlayerTransform)
+    {
+        Debug.Log("plateform down");
+        Ray.x = PlayerTransform.position.x - transform.position.x;
+        Ray.y = PlayerTransform.position.y - transform.position.y;
+        Ray.z = PlayerTransform.position.z - transform.position.z;
+        if (Ray.magnitude <= 5 /* && Input.GetKeyDown("b")*/)
+        {
+            RiseState = -1.0f;
+            StartCoroutine("Rising");
+            string encoded_data = this.name + "|" + "Collapse";
+            object[] content = new object[] { encoded_data };
+            PhotonNetwork.RaiseEvent(PLATEFORM_MOVE, content[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+
+        }
     }
 
     private void NetworkingClient_OnPlateformePower(EventData obj)
     {
-        if(obj.Code == PLATEFORM_MOVE && (string)obj.CustomData == this.name)
+        if (obj.Code == PLATEFORM_MOVE && ((string)obj.CustomData == this.name+"|Rise" || (string)obj.CustomData == this.name + "|Collapse"))
         {
+            Debug.Log(obj.CustomData);
+            string data = (string)obj.CustomData;
+            string[] subs = data.Split('|');
+            string obj_name = subs[0];
+            string obj_rise_state = subs[1];
+
+            if (obj_rise_state == "Rise") { RiseState = 1.0f; }
+            else { RiseState = -1.0f; }
+
             StartCoroutine("Rising");
         }
     }
@@ -69,9 +101,9 @@ public class rising_sustain_plat : MonoBehaviour
     IEnumerator Rising()
     {
         //CurrentHeight = transform.position.y;
-        while (transform.position.y < (MiddleHeight + HalfHeight))
+        while (RiseState * transform.position.y < RiseState * (MiddleHeight + RiseState * HalfHeight))
         {
-            transform.Translate(0.0f, RisingVelocity, 0.0f);
+            transform.Translate(0.0f, RiseState * RisingVelocity, 0.0f);
             yield return null;
         }
     }
