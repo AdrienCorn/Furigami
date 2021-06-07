@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,15 +10,19 @@ public class Interupteur : MonoBehaviour
     [SerializeField] private GameObject objectTrigger;
 
     private Vector3 Ray;
+    private const byte BRIDGE_MOVE = 6;
+    private const byte WALL_MOVE = 7;
 
     private void OnEnable()
     {
         PlayerController.onSteleInteraction += OnTriggerInteraction;
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnTrigger;
     }
 
     private void OnDisable()
     {
         PlayerController.onSteleInteraction -= OnTriggerInteraction;
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnTrigger;
     }
 
     private void OnTriggerInteraction(GameObject Player)
@@ -37,6 +44,8 @@ public class Interupteur : MonoBehaviour
         Debug.Log("bridge move");
         objectTrigger.transform.localScale = new Vector3(objectTrigger.transform.localScale.x, objectTrigger.transform.localScale.y, 0);
         StartCoroutine(BridgeCoroutine());
+        object[] datas = new object[] { this.name };
+        PhotonNetwork.RaiseEvent(BRIDGE_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     public IEnumerator BridgeCoroutine()
@@ -53,6 +62,8 @@ public class Interupteur : MonoBehaviour
         Debug.Log("obstacle move");
         objectTrigger.transform.localScale = new Vector3(objectTrigger.transform.localScale.x, objectTrigger.transform.localScale.y, objectTrigger.transform.localScale.z);
         StartCoroutine(ObstacleCoroutine());
+        object[] datas = new object[] { this.name };
+        PhotonNetwork.RaiseEvent(WALL_MOVE, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     public IEnumerator ObstacleCoroutine()
@@ -61,6 +72,18 @@ public class Interupteur : MonoBehaviour
         {
             yield return new WaitForSeconds(0);
             objectTrigger.transform.localScale += new Vector3(0, -0.04f, 0);
+        }
+    }
+
+    private void NetworkingClient_OnTrigger(EventData obj)
+    {
+        if (obj.Code == BRIDGE_MOVE)
+        {
+            MoveBridge();
+        }
+        else if (obj.Code == WALL_MOVE)
+        {
+            MoveObstacle();
         }
     }
 }
