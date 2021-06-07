@@ -91,7 +91,7 @@ public class Interupteur : MonoBehaviour
 
     private void NetworkingClient_OnTrigger(EventData obj)
     {
-        if (obj.Code == BRIDGE_MOVE&&)
+        if (obj.Code == BRIDGE_MOVE)
         {
             MoveBridge();
         }
