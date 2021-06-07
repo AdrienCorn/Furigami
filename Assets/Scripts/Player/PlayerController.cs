@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
     public Animator flipAnim;
     private bool isFacingLeft = true;
 
+    public static event Action<GameObject> onSteleInteraction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,8 +41,9 @@ public class PlayerController : MonoBehaviour
         moveInput.x = Input.GetAxis("Horizontal");
         moveInput.y = Input.GetAxis("Vertical");
         moveInput.Normalize();
+        if (!PauseMenu.isPaused) {
         theRB.velocity = new Vector3(moveInput.x * moveSpeed, theRB.velocity.y, moveInput.y * moveSpeed);
-
+        }
         //anim.SetFloat("moveSpeed", theRB.velocity.magnitude);
 
 		#region check status
@@ -62,20 +66,20 @@ public class PlayerController : MonoBehaviour
             isDrowning = false;
         }
 
-        if (playerType != 2 && Physics.Raycast(groundPoint.position, Vector3.down, out hit, .3f, theBoat))
-        {
-            isFloating = true;
-        }
-        else
-        {
-            isFloating = false;
-        }
+        //if (playerType != 2 && Physics.Raycast(groundPoint.position, Vector3.down, out hit, .3f, theBoat))
+        //{
+        //    isFloating = true;
+        //}
+        //else
+        //{
+        //    isFloating = false;
+        //}
 
         if (isDrowning)
 		{
             if (playerType != 2)
 			{
-                theRB.transform.position = new Vector3(-10, 1, 3);
+                theRB.transform.position = new Vector3(theRB.position.x - 10 , theRB.position.y + 1, theRB.position.z);
             }
             else // if has power to float
 			{
@@ -85,20 +89,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isFloating)
-        {
+        //if (isFloating)
+        //{
             //this.transform.parent = barque; ;
-            Debug.Log(barque.transform.position.y);
-            theRB.transform.position = new Vector3(barque.transform.position.x, barque.transform.position.y + 1.64f, barque.transform.position.z);            
-            if (Input.GetButtonDown("Jump"))
-            {
-                theRB.velocity += new Vector3(0f, jumpForce, 0f);
-            }
-        }
-        else
-		{
-            //this.transform.parent = null;
-		}
+        //    Debug.Log(barque.transform.position.y);
+        //    theRB.transform.position = new Vector3(barque.transform.position.x, barque.transform.position.y + 1.64f, barque.transform.position.z);            
+        //    if (Input.GetButtonDown("Jump"))
+        //    {
+        //        theRB.velocity += new Vector3(0f, jumpForce, 0f);
+        //    }
+        //}
+        //else
+		//{
+        //    //this.transform.parent = null;
+		//}
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
@@ -123,7 +127,7 @@ public class PlayerController : MonoBehaviour
             if (moveInput.x < 0 && !isFacingLeft)
             {
                 // tourner pour regarder la gauche
-                Debug.Log("tourne G");
+                //Debug.Log("tourne G");
                 flipAnim.SetTrigger("RtoL");
                 isFacingLeft = true;
                 //rotation
@@ -131,7 +135,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (moveInput.x > 0 && isFacingLeft )
             {
-                Debug.Log("tourne D");
+                //Debug.Log("tourne D");
                 flipAnim.SetTrigger("LtoR");
                 isFacingLeft = false;
                 //this.transform.Rotate(0, 180, 0);                
@@ -139,8 +143,11 @@ public class PlayerController : MonoBehaviour
             //flipAnim.SetTrigger("Flip");
         }
 
-		#endregion
+        #endregion
 
-
-	}
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            onSteleInteraction?.Invoke(this.gameObject);
+        }
+    }
 }

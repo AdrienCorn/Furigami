@@ -9,6 +9,8 @@ public class PlayerNetworking : MonoBehaviour
 
     public Camera cameraToIgnore;
 
+    public AudioListener audioListenerToIgnore;
+
     private PhotonView photonView;
 
     // Start is called before the first frame update
@@ -22,6 +24,8 @@ public class PlayerNetworking : MonoBehaviour
                 script.enabled = false;
             }
             cameraToIgnore.enabled = false;
+
+            audioListenerToIgnore.enabled = false;
         }
     }
 }
