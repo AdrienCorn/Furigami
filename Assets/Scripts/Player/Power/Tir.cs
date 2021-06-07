@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public class Tir : MonoBehaviour
 {
+    public GameObject defaultPose;
+    public GameObject activePose;
+
     [SerializeField] private GameObject proj;
 
     public static event Action<GameObject> onProjectilShoot;
@@ -17,7 +20,8 @@ public class Tir : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            
+            activePose.SetActive(true);
+            defaultPose.SetActive(false);
             if (GameObject.FindGameObjectsWithTag("projectile").Length < 3)
             {
                 Vector3 tmpPos = this.transform.position + new Vector3(-2,0,-1);
@@ -27,6 +31,11 @@ public class Tir : MonoBehaviour
                 
             }
 
+        }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            defaultPose.SetActive(true);
+            activePose.SetActive(false);
         }
     }
 }
