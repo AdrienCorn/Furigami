@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Interupteur : MonoBehaviour
 {
-    [SerializeField] private GameObject bridge;
+    [SerializeField] private GameObject objectTrigger;
 
     private Vector3 Ray;
 
@@ -25,23 +25,42 @@ public class Interupteur : MonoBehaviour
         Ray.z = Player.transform.position.z - transform.position.z;
         if (Ray.magnitude <= 5 && Input.GetKeyDown("t"))
         {
-            MoveBridge();
+            if(this.gameObject.name=="interupteur2")
+                MoveBridge();
+            if (this.gameObject.name == "interupteur3")
+                MoveObstacle();
         }
     }
 
     public void MoveBridge()
     {
         Debug.Log("bridge move");
-        bridge.transform.localScale = new Vector3(bridge.transform.localScale.x, bridge.transform.localScale.y, 0);
+        objectTrigger.transform.localScale = new Vector3(objectTrigger.transform.localScale.x, objectTrigger.transform.localScale.y, 0);
         StartCoroutine(BridgeCoroutine());
     }
 
     public IEnumerator BridgeCoroutine()
     {
-        while (bridge.transform.localScale.z < 22)
+        while (objectTrigger.transform.localScale.z < 22)
         {
             yield return new WaitForSeconds(0);
-            bridge.transform.localScale += new Vector3(0, 0, 0.2f);
+            objectTrigger.transform.localScale += new Vector3(0, 0, 0.2f);
+        }
+    }
+
+    public void MoveObstacle()
+    {
+        Debug.Log("obstacle move");
+        objectTrigger.transform.localScale = new Vector3(objectTrigger.transform.localScale.x, objectTrigger.transform.localScale.y, objectTrigger.transform.localScale.z);
+        StartCoroutine(ObstacleCoroutine());
+    }
+
+    public IEnumerator ObstacleCoroutine()
+    {
+        while (objectTrigger.transform.localScale.y > 0)
+        {
+            yield return new WaitForSeconds(0);
+            objectTrigger.transform.localScale += new Vector3(0, -0.04f, 0);
         }
     }
 }
