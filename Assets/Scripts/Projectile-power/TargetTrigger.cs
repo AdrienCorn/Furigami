@@ -9,6 +9,6 @@ public class TargetTrigger : MonoBehaviour
     public void MoveBridge()
     {
         Debug.Log("bridge move");
-        bridge.transform.localScale = new Vector3(bridge.transform.localScale.x, bridge.transform.localScale.y, 21);
+        bridge.transform.position = new Vector3(0, 0, 0);
     }
 }
