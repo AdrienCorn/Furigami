@@ -50,9 +50,9 @@ public class rising_sustain_plat : MonoBehaviour
     private void OnPlateformePowerUp(Transform PlayerTransform)
     {
         Ray.x = PlayerTransform.position.x - transform.position.x;
-        Ray.y = PlayerTransform.position.y - transform.position.y;
+        Ray.y = 0;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 /*&& Input.GetKeyDown("b")*/)
+        if (Ray.magnitude <= 7 /*&& Input.GetKeyDown("b")*/)
         {
             RiseState = 1.0f;
             StartCoroutine("Rising");
@@ -67,9 +67,9 @@ public class rising_sustain_plat : MonoBehaviour
     {
         Debug.Log("plateform down");
         Ray.x = PlayerTransform.position.x - transform.position.x;
-        Ray.y = PlayerTransform.position.y - transform.position.y;
+        Ray.y = 0;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 /* && Input.GetKeyDown("b")*/)
+        if (Ray.magnitude <= 7 /* && Input.GetKeyDown("b")*/)
         {
             RiseState = -1.0f;
             StartCoroutine("Rising");

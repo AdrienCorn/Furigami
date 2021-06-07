@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
     public Rigidbody theRB;
     public float moveSpeed, jumpForce;
     public float playerType;
@@ -19,6 +18,10 @@ public class PlayerController : MonoBehaviour
     private bool isDrowning;
     private bool isGrounded;
     public bool isFloating;
+
+    public GameObject defaultSkin;
+    public GameObject hatSkin;
+    public GameObject slimeSkin;
 
     //public Animator anim;
 
@@ -149,5 +152,26 @@ public class PlayerController : MonoBehaviour
         {
             onSteleInteraction?.Invoke(this.gameObject);
         }
+    }
+
+    public void setDefaultSkin()
+    {
+        defaultSkin.SetActive(true);
+        hatSkin.SetActive(false);
+        slimeSkin.SetActive(false);
+    }
+
+    public void setHatSkin()
+    {
+        defaultSkin.SetActive(false);
+        hatSkin.SetActive(true);
+        slimeSkin.SetActive(false);
+    }
+
+    public void setSlimeSkin()
+    {
+        defaultSkin.SetActive(false);
+        hatSkin.SetActive(false);
+        slimeSkin.SetActive(true);
     }
 }
