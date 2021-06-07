@@ -61,6 +61,8 @@ public class steleController : MonoBehaviour
                 Player.GetComponent<Tir>().enabled = true;
             else if (stelePower == "platformPower")
                 Player.GetComponent<PlateformPower>().enabled = true;
+            else if (stelePower == "waterPower")
+                Player.GetComponent<PlayerController>().playerType = 2;
             ActualiseStelePower(actualPower);
             string encoded_data = this.name + "|" + actualPower;
             object[] content = new object[] { encoded_data };
@@ -79,6 +81,11 @@ public class steleController : MonoBehaviour
         {
             actualPower = "platformPower";
             Player.GetComponent<PlateformPower>().enabled = false;
+        }
+        else if (Player.GetComponent<PlayerController>().playerType == 2)
+        {
+            actualPower = "waterPower";
+            Player.GetComponent<PlayerController>().playerType = 0;
         }
         else
             actualPower = null;
