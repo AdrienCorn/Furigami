@@ -331,6 +331,9 @@ MonoBehaviour:
     m_Bits: 512
   groundPoint: {fileID: 2683837621151598133}
   isFloating: 0
+  defaultSkin: {fileID: 7444053374330038220}
+  hatSkin: {fileID: 7365209200233809196}
+  slimeSkin: {fileID: 2757756266463313851}
   flipAnim: {fileID: 2683837620759609698}
 --- !u!114 &512415600394366228
 MonoBehaviour:
@@ -691,17 +694,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7918335002988649766, guid: 2632ebfab16596546b40d4018c76b965,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 084e029fabca1d44eb549765e953afe3, type: 2}
     - target: {fileID: 882129737928793925, guid: 2632ebfab16596546b40d4018c76b965,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 882129737928793925, guid: 2632ebfab16596546b40d4018c76b965,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca79498c7a2e441438153b28861407ec, type: 2}
     - target: {fileID: 919132149155446097, guid: 2632ebfab16596546b40d4018c76b965,
         type: 3}
       propertyPath: m_Name
       value: Ferret_Slime_Full
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2632ebfab16596546b40d4018c76b965,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148817236446094103, guid: 2632ebfab16596546b40d4018c76b965,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -713,6 +731,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2632ebfab16596546b40d4018c76b965, type: 3}
+--- !u!1 &2757756266463313851 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2632ebfab16596546b40d4018c76b965,
+    type: 3}
+  m_PrefabInstance: {fileID: 3063834674962498282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7707650656213743741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -817,6 +841,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed3726d0b3d11e84597012d99c7edfb6, type: 3}
+--- !u!1 &7365209200233809196 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ed3726d0b3d11e84597012d99c7edfb6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7707650656213743741}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7750693633404197533
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -931,3 +961,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8eed051454e7b748ba2c110d2c1eede, type: 3}
+--- !u!1 &7444053374330038220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a8eed051454e7b748ba2c110d2c1eede,
+    type: 3}
+  m_PrefabInstance: {fileID: 7750693633404197533}
+  m_PrefabAsset: {fileID: 0}
