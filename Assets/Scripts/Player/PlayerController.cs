@@ -192,7 +192,8 @@ public class PlayerController : MonoBehaviour
         defaultSkin.SetActive(true);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(false);
-        object[] datas = new object[] { this.name };
+        string encoded_data = this.name + "|" + "Default";
+        object[] datas = new object[] { encoded_data };
         PhotonNetwork.RaiseEvent(SWITCH_SKIN, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
@@ -201,6 +202,9 @@ public class PlayerController : MonoBehaviour
         defaultSkin.SetActive(false);
         hatSkin.SetActive(true);
         slimeSkin.SetActive(false);
+        string encoded_data = this.name + "|" + "Hat";
+        object[] datas = new object[] { encoded_data };
+        PhotonNetwork.RaiseEvent(SWITCH_SKIN, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     public void setSlimeSkin()
@@ -208,15 +212,26 @@ public class PlayerController : MonoBehaviour
         defaultSkin.SetActive(false);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(true);
+        string encoded_data = this.name + "|" + "Slime";
+        object[] datas = new object[] { encoded_data };
+        PhotonNetwork.RaiseEvent(SWITCH_SKIN, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     private void NetworkingClient_OnSkinSwitch(EventData obj)
     {
         if (obj.Code == SWITCH_SKIN)
         {
-            var name = (string)obj.CustomData;
+            string data = (string)obj.CustomData;
+            string[] subs = data.Split('|');
+            string name = subs[0];
+            string skin = subs[1];
             Debug.Log("coucou " + name);
-            GameObject.Find(name).GetComponent<PlayerController>().setHatSkin();
+            if(skin=="Default")
+                GameObject.Find(name).GetComponent<PlayerController>().setDefaultSkin();
+            if (skin == "Hat")
+                GameObject.Find(name).GetComponent<PlayerController>().setHatSkin();
+            if (skin == "Slime")
+                GameObject.Find(name).GetComponent<PlayerController>().setSlimeSkin();
         }
     }
 
