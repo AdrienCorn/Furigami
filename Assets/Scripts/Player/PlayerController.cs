@@ -186,6 +186,10 @@ public class PlayerController : MonoBehaviour
         {
             onSteleInteraction?.Invoke(this.gameObject);
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            PhotonNetwork.LoadLevel(2);
+        }
     }
 
     public void setDefaultSkin()
