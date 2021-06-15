@@ -38,6 +38,16 @@ public class PlayerController : MonoBehaviour
 
     private const byte SWITCH_SKIN = 20;
 
+    private void OnEnable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSkinSwitch;
+    }
+
+    private void OnDisable()
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSkinSwitch;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -183,7 +193,7 @@ public class PlayerController : MonoBehaviour
         slimeSkin.SetActive(true);
     }
 
-    private void NetworkingClient_OnPlateformePower(EventData obj)
+    private void NetworkingClient_OnSkinSwitch(EventData obj)
     {
         if (obj.Code == SWITCH_SKIN)
         {
