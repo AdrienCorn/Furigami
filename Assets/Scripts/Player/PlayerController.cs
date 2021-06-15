@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     public static event Action<GameObject> onSteleInteraction;
 
     private const byte SWITCH_SKIN = 20;
+    private const byte SET_PLAYER_PHOTON_NAME = 21;
 
     private void OnEnable()
     {
@@ -51,7 +52,21 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        object[] datas = new object[] { this.name };
+        PhotonNetwork.RaiseEvent(SET_PLAYER_PHOTON_NAME, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+    }
 
+    public void NetworkingClient_OnSetPlayerPhotonName(EventData obj)
+    {
+        if (obj.Code == SET_PLAYER_PHOTON_NAME)
+        {
+            if (GameObject.Find("Player(Clone)"))
+            {
+                GameObject.Find("Player(Clone)").name = (string)obj.CustomData;
+                object[] datas = new object[] { this.name };
+                PhotonNetwork.RaiseEvent(SET_PLAYER_PHOTON_NAME, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            }     
+        }
     }
 
     // Update is called once per frame
@@ -199,6 +214,7 @@ public class PlayerController : MonoBehaviour
         {
             var name = (string)obj.CustomData;
             Debug.Log("coucou " + name);
+            GameObject.Find(name).GetComponent<PlayerController>().setHatSkin();
         }
     }
 
