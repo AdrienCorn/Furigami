@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour
         hatSkin.SetActive(false);
         slimeSkin.SetActive(false);
         object[] datas = new object[] { this.name };
-        PhotonNetwork.RaiseEvent(eventCode: SWITCH_SKIN, eventContent: datas, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
+        PhotonNetwork.RaiseEvent(SWITCH_SKIN, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
 
     public void setHatSkin()
@@ -197,7 +197,8 @@ public class PlayerController : MonoBehaviour
     {
         if (obj.Code == SWITCH_SKIN)
         {
-            GameObject.Find((string)obj.CustomData).GetComponent<PlayerController>().setHatSkin();
+            var name = (string)obj.CustomData;
+            Debug.Log("coucou " + name);
         }
     }
 
