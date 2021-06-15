@@ -42,11 +42,13 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSkinSwitch;
+        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSetPlayerPhotonName;
     }
 
     private void OnDisable()
     {
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSkinSwitch;
+        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSetPlayerPhotonName;
     }
 
     // Start is called before the first frame update
