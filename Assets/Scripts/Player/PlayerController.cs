@@ -2,6 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using ExitGames.Client.Photon;
 
 public class PlayerController : MonoBehaviour
 {
@@ -31,6 +35,8 @@ public class PlayerController : MonoBehaviour
     private bool isFacingLeft = true;
 
     public static event Action<GameObject> onSteleInteraction;
+
+    private const byte SWITCH_SKIN = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -159,6 +165,8 @@ public class PlayerController : MonoBehaviour
         defaultSkin.SetActive(true);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(false);
+        object[] datas = new object[] { this.name };
+        PhotonNetwork.RaiseEvent(eventCode: SWITCH_SKIN, eventContent: datas, raiseEventOptions: RaiseEventOptions.Default, sendOptions: SendOptions.SendUnreliable);
     }
 
     public void setHatSkin()
@@ -174,4 +182,13 @@ public class PlayerController : MonoBehaviour
         hatSkin.SetActive(false);
         slimeSkin.SetActive(true);
     }
+
+    private void NetworkingClient_OnPlateformePower(EventData obj)
+    {
+        if (obj.Code == SWITCH_SKIN)
+        {
+            GameObject.Find((string)obj.CustomData).GetComponent<PlayerController>().setHatSkin();
+        }
+    }
+
 }
