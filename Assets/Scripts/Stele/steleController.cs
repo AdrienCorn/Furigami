@@ -61,7 +61,7 @@ public class steleController : MonoBehaviour
             if (stelePower == "projectilePower")
             {
                 Player.GetComponent<Tir>().enabled = true;
-                Player.GetComponent<PlayerController>().setDefaultSkin();
+                Player.GetComponent<PlayerController>().setNutSkin();
             }
             else if (stelePower == "platformPower")
             {
