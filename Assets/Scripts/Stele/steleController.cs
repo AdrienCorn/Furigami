@@ -58,7 +58,7 @@ public class steleController : MonoBehaviour
         Ray.z = Player.transform.position.z - transform.position.z;
         if (Ray.magnitude <= 5 && Input.GetKeyDown("t"))
         {
-            Player.GetComponent<PlayerController>().setDefaultSkin();
+            //Player.GetComponent<PlayerController>().setDefaultSkin();
             GetActualPlayerPower(Player);
             if (stelePower == "projectilePower")
             {
@@ -75,6 +75,8 @@ public class steleController : MonoBehaviour
                 Player.GetComponent<PlayerController>().playerType = 2;
                 Player.GetComponent<PlayerController>().setSlimeSkin();
             }
+            else
+                Player.GetComponent<PlayerController>().setDefaultSkin();
             ActualiseStelePower(actualPower);
             string encoded_data = this.name + "|" + actualPower;
             object[] content = new object[] { encoded_data };
