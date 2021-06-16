@@ -18,7 +18,7 @@ public class Tir : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.P))
+        if(Input.GetKeyDown(KeyCode.A))
         {
             activePose.SetActive(true);
             defaultPose.SetActive(false);
@@ -32,7 +32,7 @@ public class Tir : MonoBehaviour
             }
 
         }
-        if (Input.GetKeyUp(KeyCode.P))
+        if (Input.GetKeyUp(KeyCode.A))
         {
             defaultPose.SetActive(true);
             activePose.SetActive(false);

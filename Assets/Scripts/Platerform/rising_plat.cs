@@ -52,7 +52,7 @@ public class rising_plat : MonoBehaviour
         Ray.x = PlayerTransform.position.x - transform.position.x;
         Ray.y = 0;
         Ray.z = PlayerTransform.position.z - transform.position.z;
-        if (Ray.magnitude <= 7 && Input.GetKeyDown("b"))
+        if (Ray.magnitude <= 7 && Input.GetKeyDown("a"))
         {
             
             RiseState = -RiseState;

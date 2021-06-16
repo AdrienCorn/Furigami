@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
         #endregion
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             onSteleInteraction?.Invoke(this.gameObject);
         }

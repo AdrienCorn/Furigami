@@ -20,19 +20,19 @@ public class PlateformPower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("b"))
+        if (Input.GetKeyDown("a"))
         {
             onPlateformPowerUp?.Invoke(this.transform);
             activePose.SetActive(true);
             defaultPose.SetActive(false);
         }
-        if  (Input.GetKeyUp("b"))
+        if  (Input.GetKeyUp("a"))
         {
             onPlateformPowerDown?.Invoke(this.transform);
             defaultPose.SetActive(true);
             activePose.SetActive(false);
         }
-        if (Input.GetKey("b"))
+        if (Input.GetKey("a"))
         {
             GetComponent<PlayerController>().enabled = false;
         }
