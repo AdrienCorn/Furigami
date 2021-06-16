@@ -36,9 +36,11 @@ public class PlayerController : MonoBehaviour
     private bool isFacingLeft = true;
 
     public static event Action<GameObject> onSteleInteraction;
+    public static event Action Reset_Scene_Event;
 
     private const byte SWITCH_SKIN = 20;
     private const byte SET_PLAYER_PHOTON_NAME = 21;
+    private const byte RESET_SCENE = 22;
 
     private void OnEnable()
     {
@@ -188,7 +190,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PhotonNetwork.LoadLevel(2);
+            Reset_Scene_Function();
         }
     }
 
@@ -254,6 +256,16 @@ public class PlayerController : MonoBehaviour
             if(skin == "Nut")
                 GameObject.Find(name).GetComponent<PlayerController>().setNutSkin();
         }
+    }
+
+    private void Reset_Scene_Function()
+    {
+        Reset_Scene_Event?.Invoke();
+        this.GetComponent<Tir>().enabled = false;
+        this.GetComponent<PlateformPower>().enabled = false;
+        this.GetComponent<PlayerController>().playerType = 0;
+        setDefaultSkin();
+        this.transform.position = new Vector3(0.0f, 4.0f, 0.0f);
     }
 
 }

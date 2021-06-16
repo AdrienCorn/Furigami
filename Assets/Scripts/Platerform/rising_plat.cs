@@ -21,6 +21,7 @@ public class rising_plat : MonoBehaviour
     private void OnEnable()
     {
         PlateformPower.onPlateformPowerUp += OnPlateformePowerUp;
+        PlayerController.Reset_Scene_Event += Reset_Scene;
         //PlateformPower.onPlateformPowerDown += OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnPlateformePower;
 
@@ -31,6 +32,7 @@ public class rising_plat : MonoBehaviour
     private void OnDisable()
     {
         PlateformPower.onPlateformPowerUp -= OnPlateformePowerUp;
+        PlayerController.Reset_Scene_Event -= Reset_Scene;
         //PlateformPower.onPlateformPowerDown -= OnPlateformePowerDown;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnPlateformePower;
 
@@ -82,5 +84,11 @@ public class rising_plat : MonoBehaviour
             transform.Translate(0.0f, RiseState * RisingVelocity, 0.0f);
             yield return null;
         }
+    }
+
+    private void Reset_Scene()
+    {
+        RiseState = -1.0f;
+        StartCoroutine("Rising");
     }
 }
