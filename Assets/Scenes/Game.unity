@@ -7748,7 +7748,7 @@ GameObject:
   - component: {fileID: 545885556}
   - component: {fileID: 545885555}
   - component: {fileID: 545885554}
-  m_Layer: 8
+  m_Layer: 4
   m_Name: riviere2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20797,7 +20797,7 @@ GameObject:
   - component: {fileID: 1221468587}
   - component: {fileID: 1221468586}
   - component: {fileID: 1221468585}
-  m_Layer: 8
+  m_Layer: 4
   m_Name: riviere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
