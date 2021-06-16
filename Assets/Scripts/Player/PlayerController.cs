@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public static event Action<GameObject> onSteleInteraction;
     public static event Action Reset_Scene_Event;
+    public static event Action Reset_Player_Event;
 
     private const byte SWITCH_SKIN = 20;
     private const byte SET_PLAYER_PHOTON_NAME = 21;
@@ -71,6 +72,10 @@ public class PlayerController : MonoBehaviour
                 object[] datas = new object[] { this.name };
                 PhotonNetwork.RaiseEvent(SET_PLAYER_PHOTON_NAME, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
             }     
+        }
+        if (obj.Code == RESET_SCENE)
+        {
+            Reset_Scene_Function();
         }
     }
 
@@ -191,6 +196,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Reset_Scene_Function();
+            PhotonNetwork.RaiseEvent(RESET_SCENE, "", RaiseEventOptions.Default, SendOptions.SendUnreliable);
         }
     }
 
