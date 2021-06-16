@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private const byte SET_PLAYER_PHOTON_NAME = 21;
     private const byte RESET_SCENE = 22;
 
+    public bool loopBreak = false;
+
     private void OnEnable()
     {
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSkinSwitch;
@@ -202,6 +204,7 @@ public class PlayerController : MonoBehaviour
 
     public void setDefaultSkin()
     {
+        loopBreak = true;
         defaultSkin.SetActive(true);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(false);
@@ -213,6 +216,7 @@ public class PlayerController : MonoBehaviour
 
     public void setHatSkin()
     {
+        loopBreak = true;
         defaultSkin.SetActive(false);
         hatSkin.SetActive(true);
         slimeSkin.SetActive(false);
@@ -224,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
     public void setSlimeSkin()
     {
+        loopBreak = true;
         defaultSkin.SetActive(false);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(true);
@@ -235,6 +240,7 @@ public class PlayerController : MonoBehaviour
 
     public void setNutSkin()
     {
+        loopBreak = true;
         defaultSkin.SetActive(false);
         hatSkin.SetActive(false);
         slimeSkin.SetActive(false);
@@ -253,14 +259,19 @@ public class PlayerController : MonoBehaviour
             string name = subs[0];
             string skin = subs[1];
             Debug.Log("coucou " + name);
-            if(skin=="Default")
-                GameObject.Find(name).GetComponent<PlayerController>().setDefaultSkin();
-            if (skin == "Hat")
-                GameObject.Find(name).GetComponent<PlayerController>().setHatSkin();
-            if (skin == "Slime")
-                GameObject.Find(name).GetComponent<PlayerController>().setSlimeSkin();
-            if(skin == "Nut")
-                GameObject.Find(name).GetComponent<PlayerController>().setNutSkin();
+            if (loopBreak) { }
+            else
+            {
+                if (skin == "Default")
+                    GameObject.Find(name).GetComponent<PlayerController>().setDefaultSkin();
+                if (skin == "Hat")
+                    GameObject.Find(name).GetComponent<PlayerController>().setHatSkin();
+                if (skin == "Slime")
+                    GameObject.Find(name).GetComponent<PlayerController>().setSlimeSkin();
+                if (skin == "Nut")
+                    GameObject.Find(name).GetComponent<PlayerController>().setNutSkin();
+            }
+            loopBreak = false;
         }
     }
 

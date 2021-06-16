@@ -336,6 +336,7 @@ MonoBehaviour:
   slimeSkin: {fileID: 2757756266463313851}
   nutSkin: {fileID: 5848920394147393432}
   flipAnim: {fileID: 2683837620759609698}
+  loopBreak: 0
 --- !u!114 &512415600394366228
 MonoBehaviour:
   m_ObjectHideFlags: 0
