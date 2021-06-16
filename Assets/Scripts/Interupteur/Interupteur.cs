@@ -8,6 +8,7 @@ using UnityEngine;
 public class Interupteur : MonoBehaviour
 {
     [SerializeField] private GameObject objectTrigger;
+    [SerializeField] private GameObject lever;
 
     private Vector3 Ray;
     private const byte BRIDGE_MOVE = 10;
@@ -44,6 +45,7 @@ public class Interupteur : MonoBehaviour
                 MoveBridge();
             if (this.gameObject.name == "interupteur3")
                 MoveObstacle();
+            lever.transform.eulerAngles = new Vector3(0, this.transform.rotation.y + 180, 0);
         }
     }
 
