@@ -45,7 +45,7 @@ public class Interupteur : MonoBehaviour
                 MoveBridge();
             if (this.gameObject.name == "interupteur3")
                 MoveObstacle();
-            lever.transform.eulerAngles = new Vector3(0, this.transform.rotation.y + 180, 0);
+            lever.transform.eulerAngles = new Vector3(0, 180, 0);
         }
     }
 
@@ -113,6 +113,6 @@ public class Interupteur : MonoBehaviour
         if (this.gameObject.name == "interupteur3")
             objectTrigger.transform.localScale = new Vector3(10.0f, 13.0f, 1.0f);
             deployed = false;
-        lever.transform.eulerAngles = new Vector3(0, this.transform.rotation.y - 180, 0);
+        lever.transform.eulerAngles = new Vector3(0, 0, 0);
     }
 }
