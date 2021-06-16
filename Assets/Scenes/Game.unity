@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657797, g: 0.49641365, b: 0.57481915, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465775, g: 0.49641305, b: 0.57481754, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18592,6 +18592,7 @@ MonoBehaviour:
   slimeSkin: {fileID: 0}
   nutSkin: {fileID: 0}
   flipAnim: {fileID: 0}
+  loopBreak: 0
 --- !u!65 &1172947329
 BoxCollider:
   m_ObjectHideFlags: 0

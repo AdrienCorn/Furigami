@@ -56,7 +56,7 @@ public class steleController : MonoBehaviour
         Ray.x = Player.transform.position.x - transform.position.x;
         Ray.y = Player.transform.position.y - transform.position.y;
         Ray.z = Player.transform.position.z - transform.position.z;
-        if (Ray.magnitude <= 5 && Input.GetKeyDown("t"))
+        if (Ray.magnitude <= 5 && Input.GetKeyDown("e"))
         {
             //Player.GetComponent<PlayerController>().setDefaultSkin();
             GetActualPlayerPower(Player);
