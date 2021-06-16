@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using ExitGames.Client.Photon;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EndGame : MonoBehaviour
 {
+    private List<string> ferret = new List<string>();
+    private const byte RESET_SCENE = 22;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,11 +19,21 @@ public class EndGame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (ferret.Count >= 6)
+        {
+            PhotonNetwork.RaiseEvent(RESET_SCENE, "", RaiseEventOptions.Default, SendOptions.SendUnreliable);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
+        ferret.Add(other.name);
+        Debug.Log(ferret.Count);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        ferret.Remove(other.name);
+        Debug.Log(ferret.Count);
     }
 }
