@@ -22,12 +22,14 @@ public class steleController : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.onSteleInteraction += OnSteleInteraction;
+        PlayerController.Reset_Scene_Event += Reset_Scene;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSteleActualisation;
     }
 
     private void OnDisable()
     {
         PlayerController.onSteleInteraction -= OnSteleInteraction;
+        PlayerController.Reset_Scene_Event -= Reset_Scene;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSteleActualisation;
     }
 
@@ -122,5 +124,10 @@ public class steleController : MonoBehaviour
             if (obj_name == this.gameObject.name)
                 ActualiseStelePower(obj_newPower);
         }
+    }
+
+    private void Reset_Scene()
+    {
+        ActualiseStelePower(this.name);
     }
 }

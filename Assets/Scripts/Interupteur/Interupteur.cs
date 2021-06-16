@@ -17,12 +17,14 @@ public class Interupteur : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.onSteleInteraction += OnTriggerInteraction;
+        PlayerController.Reset_Scene_Event += Reset_Scene;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnTrigger;
     }
 
     private void OnDisable()
     {
         PlayerController.onSteleInteraction -= OnTriggerInteraction;
+        PlayerController.Reset_Scene_Event -= Reset_Scene;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnTrigger;
     }
 
@@ -99,5 +101,15 @@ public class Interupteur : MonoBehaviour
         {
             MoveObstacle();
         }
+    }
+
+    private void Reset_Scene()
+    {
+        if (this.gameObject.name == "interupteur2")
+            objectTrigger.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            deployed = false;
+        if (this.gameObject.name == "interupteur3")
+            objectTrigger.transform.localScale = new Vector3(10.0f, 13.0f, 1.0f);
+            deployed = false;
     }
 }
