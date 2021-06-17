@@ -47,13 +47,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSkinSwitch;
+        //PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSkinSwitch;
         PhotonNetwork.NetworkingClient.EventReceived += NetworkingClient_OnSetPlayerPhotonName;
     }
 
     private void OnDisable()
     {
-        PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSkinSwitch;
+        //PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSkinSwitch;
         PhotonNetwork.NetworkingClient.EventReceived -= NetworkingClient_OnSetPlayerPhotonName;
     }
 
@@ -244,7 +244,7 @@ public class PlayerController : MonoBehaviour
         object[] datas = new object[] { encoded_data };
         PhotonNetwork.RaiseEvent(SWITCH_SKIN, datas[0], RaiseEventOptions.Default, SendOptions.SendUnreliable);
     }
-
+    /*
     private void NetworkingClient_OnSkinSwitch(EventData obj)
     {
         if (obj.Code == SWITCH_SKIN)
@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
             loopBreak = false;
         }
     }
-
+    */
     public void Reset_Scene_Function()
     {
         Reset_Scene_Event?.Invoke();
