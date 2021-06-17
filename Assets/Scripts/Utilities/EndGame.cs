@@ -21,7 +21,9 @@ public class EndGame : MonoBehaviour
     {
         if (ferret.Count >= 6)
         {
+            string name = PhotonNetwork.LocalPlayer.NickName;
             PhotonNetwork.RaiseEvent(RESET_SCENE, "", RaiseEventOptions.Default, SendOptions.SendUnreliable);
+            GameObject.Find(name).GetComponent<PlayerController>().Reset_Scene_Function();
         }
     }
 
