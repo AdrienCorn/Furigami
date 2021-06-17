@@ -195,11 +195,6 @@ public class PlayerController : MonoBehaviour
         {
             onSteleInteraction?.Invoke(this.gameObject);
         }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reset_Scene_Function();
-            PhotonNetwork.RaiseEvent(RESET_SCENE, "", RaiseEventOptions.Default, SendOptions.SendUnreliable);
-        }
     }
 
     public void setDefaultSkin()
@@ -275,7 +270,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Reset_Scene_Function()
+    public void Reset_Scene_Function()
     {
         Reset_Scene_Event?.Invoke();
         this.GetComponent<Tir>().enabled = false;
