@@ -43,10 +43,10 @@ public class TargetTrigger : MonoBehaviour
 
     public IEnumerator BarrierCoroutine()
     {
-        while (bridge.transform.position.y > -6)
+        while (bridge.transform.localPosition.y > -6.7f)
         {
             yield return new WaitForSeconds(0);
-            bridge.transform.position += new Vector3(0, -0.2f, 0);
+            bridge.transform.localPosition += new Vector3(0, -0.2f, 0);
         }
     }
 
@@ -59,7 +59,7 @@ public class TargetTrigger : MonoBehaviour
         }
         if (this.name == "interupteur_final")
         {
-            bridge.transform.position = new Vector3(12.5f, -4.3f, 5.62f);
+            bridge.transform.localPosition = new Vector3(12.75f, -4.96f, 5.62f);
             this.GetComponent<Renderer>().material = this.inactive;
         }
     }
